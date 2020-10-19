@@ -2,6 +2,8 @@ package com.rss.cliente.escola.gradecurricular.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rss.cliente.escola.gradecurricular.entity.MateriaEntity;
-import com.rss.cliente.escola.gradecurricular.repository.IMateriaRepository;
+import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
 import com.rss.cliente.escola.gradecurricular.service.IMateriaServices;
 
 @RestController
@@ -23,18 +24,15 @@ import com.rss.cliente.escola.gradecurricular.service.IMateriaServices;
 public class MateriaController {
 
 	@Autowired
-	private IMateriaRepository materiaRepository;
-
-	@Autowired
 	IMateriaServices materiaServices;
 
 	@GetMapping
-	public ResponseEntity<List<MateriaEntity>> listarMaterias() {
+	public ResponseEntity<List<MateriaDto>> listarMaterias() {
 		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.listar());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<MateriaEntity> consultaMateria(@PathVariable Long id) {
+	public ResponseEntity<MateriaDto> consultaMateria(@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.consultar(id));
 	}
 
@@ -45,13 +43,13 @@ public class MateriaController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Boolean> atualizarMateria(@RequestBody MateriaEntity materia) {
+	public ResponseEntity<Boolean> atualizarMateria(@Valid @RequestBody MateriaDto materia) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.atualizar(materia));
 
 	}
 
 	@PostMapping
-	public ResponseEntity<Boolean> cadastrarMateria(@RequestBody MateriaEntity materia) {
+	public ResponseEntity<Boolean> cadastrarMateria(@Valid @RequestBody MateriaDto materia) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.cadastrar(materia));
 	}
 }
