@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,39 +18,80 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
-import com.rss.cliente.escola.gradecurricular.service.IMateriaServices;
+import com.rss.cliente.escola.gradecurricular.model.Response;
+import com.rss.cliente.escola.gradecurricular.service.IMateriaService;
 
 @RestController
 @RequestMapping("/materia")
 public class MateriaController {
 
+	private static final String DELETE = "DELETE";
+	private static final String UPDATE = "UPDATE";
+	private static final String LIST = "GET_ALL";
+
+
 	@Autowired
-	IMateriaServices materiaServices;
+	IMateriaService materiaService;
 
 	@GetMapping
-	public ResponseEntity<List<MateriaDto>> listarMaterias() {
-		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.listar());
+	public ResponseEntity<Response<List<MateriaDto>>> listarMaterias() {
+		Response<List<MateriaDto>> response = new Response<>();
+		response.setData(this.materiaService.listar());
+		response.setHttpStatus(HttpStatus.OK.value());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).listarMaterias())
+				.withSelfRel());
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<MateriaDto> consultaMateria(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.consultar(id));
+	public ResponseEntity<Response<MateriaDto>> consultaMateria(@PathVariable Long id) {
+		Response<MateriaDto> response = new Response<>();
+		MateriaDto materia = this.materiaService.consultar(id);
+		response.setData(materia);
+		response.setHttpStatus(HttpStatus.OK.value());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).consultaMateria(id))
+				.withSelfRel());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).deletaMateria(id))
+				.withRel(DELETE));
+		response.add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).atualizarMateria(materia)).withRel(UPDATE));
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> deletaMateria(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.excluir(id));
+	public ResponseEntity<Response<Boolean>> deletaMateria(@PathVariable Long id) {
+		Response<Boolean> response = new Response<>();
+		response.setData(this.materiaService.excluir(id));
+		response.setHttpStatus(HttpStatus.OK.value());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).deletaMateria(id))
+				.withSelfRel());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).listarMaterias())
+				.withRel(LIST));
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 
 	}
 
 	@PutMapping
-	public ResponseEntity<Boolean> atualizarMateria(@Valid @RequestBody MateriaDto materia) {
-		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.atualizar(materia));
+	public ResponseEntity<Response<Boolean>> atualizarMateria(@Valid @RequestBody MateriaDto materia) {
+		Response<Boolean> response = new Response<>();
+		response.setData(this.materiaService.atualizar(materia));
+		response.setHttpStatus(HttpStatus.OK.value());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).atualizarMateria(materia))
+				.withSelfRel());
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<Boolean> cadastrarMateria(@Valid @RequestBody MateriaDto materia) {
-		return ResponseEntity.status(HttpStatus.OK).body(this.materiaServices.cadastrar(materia));
+	public ResponseEntity<Response<Boolean>> cadastrarMateria(@Valid @RequestBody MateriaDto materia) {
+		Response<Boolean> response = new Response<>();
+		response.setData(this.materiaService.cadastrar(materia));
+		response.setHttpStatus(HttpStatus.OK.value());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).cadastrarMateria(materia)).withSelfRel());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).atualizarMateria(materia))
+				.withRel(UPDATE));
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).listarMaterias())
+				.withRel(LIST));
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }
