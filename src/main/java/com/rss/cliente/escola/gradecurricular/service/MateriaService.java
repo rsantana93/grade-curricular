@@ -12,6 +12,7 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.rss.cliente.escola.gradecurricular.contante.MensagensConstant;
 import com.rss.cliente.escola.gradecurricular.controller.MateriaController;
 import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
 import com.rss.cliente.escola.gradecurricular.entity.MateriaEntity;
@@ -22,8 +23,6 @@ import com.rss.cliente.escola.gradecurricular.repository.IMateriaRepository;
 @CacheConfig(cacheNames = "materia")
 public class MateriaService implements IMateriaService {
 	
-	private static final String MENSAGEM_ERRO = "Erro interno identificado. Contate o suporte";
-	private static final String MATERIA_NAO_ENCONTRADA = "Matéria não encontrada";
 	private IMateriaRepository materiaRepository;
 	private ModelMapper mapper;
 	
@@ -68,9 +67,9 @@ public class MateriaService implements IMateriaService {
 			MateriaEntity entity = this.mapper.map(materia, MateriaEntity.class);
 
 			this.materiaRepository.save(entity);
-			return true;
+			return Boolean.TRUE;
 		} catch (Exception e) {
-			throw new MateriaException(MENSAGEM_ERRO,
+			throw new MateriaException(MensagensConstant.MENSAGEM_ERRO.getValor(),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -91,7 +90,7 @@ public class MateriaService implements IMateriaService {
 
 			return materiaDto;
 		} catch (Exception e) {
-			throw new MateriaException(MENSAGEM_ERRO,
+			throw new MateriaException(MensagensConstant.MENSAGEM_ERRO.getValor(),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
@@ -105,11 +104,39 @@ public class MateriaService implements IMateriaService {
 			if (materiaOptional.isPresent()) {
 				return this.mapper.map(materiaOptional.get(),MateriaDto.class);
 			}
-			throw new MateriaException(MATERIA_NAO_ENCONTRADA, HttpStatus.NOT_FOUND);
+			throw new MateriaException(MensagensConstant.MATERIA_NAO_ENCONTRADA.getValor(), HttpStatus.NOT_FOUND);
 		} catch (MateriaException m) {
 			throw m;
 		} catch (Exception e) {
-			throw new MateriaException(MENSAGEM_ERRO,
+			throw new MateriaException(MensagensConstant.MENSAGEM_ERRO.getValor(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Override
+	public List<MateriaDto> listarMateriaPorHoraMinima(int hora) {
+		try {
+			List<MateriaDto> materiaDto = this.mapper.map(this.materiaRepository.findByHoraMinima(hora),
+					new TypeToken<List<MateriaDto>>() {
+					}.getType());
+
+			return materiaDto;
+		} catch (Exception e) {
+			throw new MateriaException(MensagensConstant.MENSAGEM_ERRO.getValor(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@Override
+	public List<MateriaDto> listarMateriaPorFreqMinima(int hora) {
+		try {
+			List<MateriaDto> materiaDto = this.mapper.map(this.materiaRepository.findByFreqMinima(hora),
+					new TypeToken<List<MateriaDto>>() {
+					}.getType());
+
+			return materiaDto;
+		} catch (Exception e) {
+			throw new MateriaException(MensagensConstant.MENSAGEM_ERRO.getValor(),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

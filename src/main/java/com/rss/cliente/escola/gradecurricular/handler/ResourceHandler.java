@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.rss.cliente.escola.gradecurricular.exception.CursoException;
 import com.rss.cliente.escola.gradecurricular.exception.MateriaException;
 import com.rss.cliente.escola.gradecurricular.model.Response;
 
@@ -18,6 +19,14 @@ public class ResourceHandler {
 	
 	@ExceptionHandler(MateriaException.class)
 	public ResponseEntity<Response<String>> handlerMateriaException(MateriaException m){
+		Response<String> response = new Response<>();
+		response.setHttpStatus(m.getHttpStatus().value());
+		response.setData(m.getMessage());
+		return ResponseEntity.status(m.getHttpStatus()).body(response);
+	}
+	
+	@ExceptionHandler(CursoException.class)
+	public ResponseEntity<Response<String>> handlerMateriaException(CursoException m){
 		Response<String> response = new Response<>();
 		response.setHttpStatus(m.getHttpStatus().value());
 		response.setData(m.getMessage());

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rss.cliente.escola.gradecurricular.contante.HyperLinkContant;
 import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
 import com.rss.cliente.escola.gradecurricular.model.Response;
 import com.rss.cliente.escola.gradecurricular.service.IMateriaService;
@@ -24,11 +25,6 @@ import com.rss.cliente.escola.gradecurricular.service.IMateriaService;
 @RestController
 @RequestMapping("/materia")
 public class MateriaController {
-
-	private static final String DELETE = "DELETE";
-	private static final String UPDATE = "UPDATE";
-	private static final String LIST = "GET_ALL";
-
 
 	@Autowired
 	IMateriaService materiaService;
@@ -51,22 +47,22 @@ public class MateriaController {
 		response.setHttpStatus(HttpStatus.OK.value());
 		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).consultaMateria(id))
 				.withSelfRel());
-		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).deletaMateria(id))
-				.withRel(DELETE));
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).excluirMateria(id))
+				.withRel(HyperLinkContant.DELETE.getValor()));
 		response.add(WebMvcLinkBuilder
-				.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).atualizarMateria(materia)).withRel(UPDATE));
+				.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).atualizarMateria(materia)).withRel(HyperLinkContant.UPDATE.getValor()));
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-
+	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Response<Boolean>> deletaMateria(@PathVariable Long id) {
+	public ResponseEntity<Response<Boolean>> excluirMateria(@PathVariable Long id) {
 		Response<Boolean> response = new Response<>();
 		response.setData(this.materiaService.excluir(id));
 		response.setHttpStatus(HttpStatus.OK.value());
-		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).deletaMateria(id))
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).excluirMateria(id))
 				.withSelfRel());
 		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).listarMaterias())
-				.withRel(LIST));
+				.withRel(HyperLinkContant.LIST.getValor()));
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 
 	}
@@ -89,9 +85,31 @@ public class MateriaController {
 		response.setHttpStatus(HttpStatus.OK.value());
 		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).cadastrarMateria(materia)).withSelfRel());
 		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).atualizarMateria(materia))
-				.withRel(UPDATE));
+				.withRel(HyperLinkContant.UPDATE.getValor()));
 		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).listarMaterias())
-				.withRel(LIST));
+				.withRel(HyperLinkContant.LIST.getValor()));
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@GetMapping("/horario-minimo/{hora}")
+	public ResponseEntity<Response<List<MateriaDto>>> consultarMateriaPorHoraMinima(@PathVariable int hora) {
+		Response<List<MateriaDto>> response = new Response<>();
+		response.setData(this.materiaService.listarMateriaPorHoraMinima(hora));
+		response.setHttpStatus(HttpStatus.OK.value());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).consultarMateriaPorHoraMinima(hora))
+				.withSelfRel());
+		
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@GetMapping("/frequencia-minima/{freq}")
+	public ResponseEntity<Response<List<MateriaDto>>> consultarMateriaPorFreqMinima(@PathVariable int freq) {
+		Response<List<MateriaDto>> response = new Response<>();
+		response.setData(this.materiaService.listarMateriaPorFreqMinima(freq));
+		response.setHttpStatus(HttpStatus.OK.value());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MateriaController.class).consultarMateriaPorFreqMinima(freq))
+				.withSelfRel());
+		
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }
