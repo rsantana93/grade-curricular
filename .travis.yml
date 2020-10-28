@@ -1,0 +1,8 @@
+languagem: java
+jdk: "-openjdk8"
+deploy:
+  provider: heroku
+  api_key:
+  app: grade-curricular-dev
+  on:
+    all_branches: true
