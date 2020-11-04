@@ -1,9 +1,9 @@
+languagem: java
+jdk: "-openjdk8"
 deploy:
   provider: heroku
   api_key:
     secure: OZ/37Qcw8ErDXjnZuiX6L/I7qcRGv1t3HSut8NgLG6blRYe1QfboHx9v/nHbUOfJSKwRizcAYcSJc7cdVrkLMgEghr/gh4Q8t8io7AEMN6IRSgdJ/OHDuCLubehKCjupWKkM49crJTDAj6Neoahj/wvzeliTopr1pah74rfAQAVXtq9Vg78nGIV7na9nLkeSSF/s198mM1O2NPJMbeD9UDF0vFOkygpbWlxD4mKobxu2SyGfCUnhYhVHIN99lOyZvwJQrSZ6YI4ObP+pWKgl17qNGupAky0BtkEC14F1NMgif2smjQEZbi7IskvlU3b7c/lvEHnEGnSNXIHaBWHP+MVfsJc/SQNqc73gWKkFjbUwapjaTVXBfl+LBRD1zziIqF3V86ZfnG/Y7ulu7rDgNSzocjW+uziNQnnuHZbvbuasW5V9QppLZXW2fg1BTQXL7uHzd02smLvPzcMFJlMTXj12Z8X1pHrlijqp3SSlugBfCd2ElkyPtVm6r2WR898BzGA84J/9l5EzKV3EkzWOnTLaqlrDElObpDa5IMCIcYUmNVVACTtlv56JupT7FhuhDrEjxheGoJwitlRZa72D+4EVDT3RHAuc1D+6U9dld7fw/Y4Kd0j36CQYeQIlFiKd22QoGbiVMbZ3AH/MR4e0uDIjF0UH/6yDclgKEl+sOi0=
   app: ms-grade-curricular-dev
   on:
-    repo: rsantana93/grade-curricular
-    branch: Aula_18
-  skip_cleanup: 'true'
+    all_branches: true
