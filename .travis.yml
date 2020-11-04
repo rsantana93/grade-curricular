@@ -1,0 +1,9 @@
+languagem: java
+jdk: "-openjdk8"
+deploy:
+  provider: heroku
+  api_key:
+    secure: R2sdskUTksJjekzJzKYUBsJi5FZtTh4Xyb7XCWkn0ZYN6ceaCxho/FJIKtUWcecF2qVCfxY+co8CtKhCNjHSCD8Or06x/5lrIuEcMlcpfRJLnFysPtORzt3a9DJ8FVuShjWbBSj2x7nFed1ilHU5yIo6s6+lqIKBMisfmljTJRH0jGihNBaJgNyOQmXbUntcE9c2TGe/CJTGzU9BizP4h6DLVHjwSZ+reUdp73cUjFPLh4pH9ESn+C5rWbJiK9lZU/CzZWwWHImoe09eaT7rJvI62s79NjTG6W+j/DtR7pWdC3NzYq6AwJA5FQZdRQP3OIy8eI9+LU6b1mOaRFHUPG95A/aPTamKLjxgMq+oI4yG+kpDbpSCFEgEdIyTA+p4A2RS6/+SM3U2mYB1REmj1jRHSQZOrcGdHbyb4NjZE5g/H8FHKtpa1l+p9XR1/wGmot0JdgV7BQpDGgjatkCgrMYpv8xgiQA+Fv1tSrH1Zre+JZHoV1ePodGy4hwO1Z2xbZLt/PmuI+5a87PauOKjgHW2o0rGo3nj85tdaTFTSwa9EzafHhPxIOMQOCLWf13RQnxthyTYFFcPZpYyp2noNzxE+31Su4+2nW8g9criDI68UmKUwgxksU1QwvWHKbD4ee0R0GrQ8r9CX0Dhu3cydGZqF4KUo7mRnBNvMkegTsM=
+  app: ms-grade-curricular-dev
+  on:
+    all_branches: true
