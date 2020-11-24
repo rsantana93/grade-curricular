@@ -21,7 +21,7 @@ public class CursoResponseDto extends RepresentationModel<CursoResponseDto>{
 	private String nome;
 	
 	@NotBlank(message = "Informe o código do curso.")
-	private String codCurso;
+	private String codigo;
 	
 	private List<MateriaDto> materias;
 }
