@@ -9,6 +9,6 @@ import com.rss.cliente.escola.gradecurricular.entity.CursoEntity;
 
 @Repository
 public interface ICursoRepository extends JpaRepository<CursoEntity, Long>{
-	@Query("select m from CursoEntity m where m.codigo >= :codigo")
+	@Query("select m from CursoEntity m where m.codigo = :codigo")
 	public CursoEntity findCursoByCodigo(@Param("codigo") String codigo);
 }
