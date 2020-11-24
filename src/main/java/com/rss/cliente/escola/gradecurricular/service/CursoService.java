@@ -12,13 +12,12 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.rss.cliente.escola.gradecurricular.contante.MensagensConstant;
+import com.rss.cliente.escola.gradecurricular.contant.MensagensConstant;
 import com.rss.cliente.escola.gradecurricular.dto.CursoRequestDto;
 import com.rss.cliente.escola.gradecurricular.dto.CursoResponseDto;
 import com.rss.cliente.escola.gradecurricular.entity.CursoEntity;
 import com.rss.cliente.escola.gradecurricular.entity.MateriaEntity;
 import com.rss.cliente.escola.gradecurricular.exception.CursoException;
-import com.rss.cliente.escola.gradecurricular.exception.MateriaException;
 import com.rss.cliente.escola.gradecurricular.repository.ICursoRepository;
 import com.rss.cliente.escola.gradecurricular.repository.IMateriaRepository;
 
@@ -45,7 +44,7 @@ public class CursoService implements ICursoService {
 			this.cursoRepository.save(cursoEntityAtualizada);
 			
 			return Boolean.TRUE;
-		} catch (MateriaException m) {
+		} catch (CursoException m) {
 			throw m;
 		} catch (Exception e) {
 			throw e;
@@ -59,7 +58,7 @@ public class CursoService implements ICursoService {
 			this.consultar(id);
 			cursoRepository.deleteById(id);
 			return Boolean.TRUE;
-		} catch (MateriaException m) {
+		} catch (CursoException m) {
 			throw m;
 		} catch (Exception e) {
 			throw e;
@@ -87,7 +86,7 @@ public class CursoService implements ICursoService {
 			
 			List<MateriaEntity> listMateriaEntity = new ArrayList<>();
 			
-			if(!curso.getMaterias().isEmpty()) {
+			if(curso.getMaterias() != null && !curso.getMaterias().isEmpty()) {
 				
 				curso.getMaterias().forEach(materia->{
 					if(this.materiaRepository.findById(materia).isPresent())
@@ -122,7 +121,7 @@ public class CursoService implements ICursoService {
 
 			return materiaDto;
 		} catch (Exception e) {
-			throw new MateriaException(MensagensConstant.MENSAGEM_ERRO.getValor(),
+			throw new CursoException(MensagensConstant.MENSAGEM_ERRO.getValor(),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
@@ -136,21 +135,22 @@ public class CursoService implements ICursoService {
 			if (cursoOtional.isPresent()) {
 				return this.mapper.map(cursoOtional.get(),CursoResponseDto.class);
 			}
-			throw new MateriaException(MensagensConstant.CURSO_NAO_ENCONTRADA.getValor(), HttpStatus.NOT_FOUND);
-		} catch (MateriaException m) {
+			throw new CursoException(MensagensConstant.CURSO_NAO_ENCONTRADA.getValor(), HttpStatus.NOT_FOUND);
+		} catch (CursoException m) {
 			throw m;
 		} catch (Exception e) {
-			throw new MateriaException(MensagensConstant.MENSAGEM_ERRO.getValor(),
+			throw new CursoException(MensagensConstant.MENSAGEM_ERRO.getValor(),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@CachePut(key = "#codCurso")
 	@Override
-	public CursoRequestDto consultarPorCodigo(String codCurso) {
+	public CursoResponseDto consultarPorCodigo(String codCurso) {
 
 		try {
-			CursoRequestDto curso = this.mapper.map(this.cursoRepository.findCursoByCodigo(codCurso),CursoRequestDto.class);
+			CursoEntity cursoEntity = this.cursoRepository.findCursoByCodigo(codCurso);
+			CursoResponseDto curso = this.mapper.map(cursoEntity,CursoResponseDto.class);
 
 			if (curso == null) {
 				throw new CursoException(MensagensConstant.ERRO_CURSO_NAO_ENCONTRADO.getValor(), HttpStatus.NOT_FOUND);

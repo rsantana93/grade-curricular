@@ -12,7 +12,7 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.rss.cliente.escola.gradecurricular.contante.MensagensConstant;
+import com.rss.cliente.escola.gradecurricular.contant.MensagensConstant;
 import com.rss.cliente.escola.gradecurricular.controller.MateriaController;
 import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
 import com.rss.cliente.escola.gradecurricular.entity.MateriaEntity;
