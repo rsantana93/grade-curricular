@@ -55,7 +55,7 @@ public class CursoControllerIntegratedTest {
 	private void montaBaseDados() {
 
 		CursoEntity m1 = new CursoEntity();
-		m1.setCodigo("CS01");
+		m1.setCodigo("SI01");
 		m1.setNome("CURSO SI");
 
 		CursoEntity m2 = new CursoEntity();
@@ -63,7 +63,7 @@ public class CursoControllerIntegratedTest {
 		m2.setNome("CURSO ADS");
 
 		CursoEntity m3 = new CursoEntity();
-		m3.setCodigo("CS03");
+		m3.setCodigo("EC03");
 		m3.setNome("CURSO EC");
 
 		List<CursoEntity> lista = new ArrayList<>();
@@ -87,7 +87,7 @@ public class CursoControllerIntegratedTest {
 
 	@Test
 	public void testConsultarCurso() {
-		ResponseEntity<Response<CursoResponseDto>> curso = restTemplate.exchange(ENDERECO + this.port + "/curso/1",
+		ResponseEntity<Response<CursoResponseDto>> curso = restTemplate.exchange(ENDERECO + this.port + "/curso/SI01",
 				HttpMethod.GET, null, new ParameterizedTypeReference<Response<CursoResponseDto>>() {
 				});
 
@@ -98,7 +98,7 @@ public class CursoControllerIntegratedTest {
 	@Test
 	public void testCadastrarCurso() {
 		CursoRequestDto curso = new CursoRequestDto();
-		curso.setCodCurso("CURSO5");
+		curso.setCodCurso("CURSO57");
 		curso.setNome("ENG. DADOS");
 		
 		HttpEntity<CursoRequestDto> request = new HttpEntity<>(curso);
