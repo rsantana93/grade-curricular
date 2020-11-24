@@ -1,4 +1,5 @@
 travis login --pro --github-token XXXXXXXXXXXXXXX
+travis login --pro
 travis encrypt $(heroku auth:token) --add deploy.api_key --com
 travis setup heroku
 Nessa aula achei que faltou algumas informações complementares, para fazer o login no git tiver que utilizar o comando travis login --pro --github-token XXXXXXXXXXXXXXX, pois não estava conseguindo logar só com o comando (travis login --pro).

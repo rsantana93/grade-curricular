@@ -11,6 +11,6 @@ public interface ICursoService {
 	public Boolean cadastrar(final CursoRequestDto curso);
 	public List<CursoResponseDto> listar();
 	public CursoResponseDto consultar(final Long id);
-	public CursoRequestDto consultarPorCodigo(String codCurso);
+	public CursoResponseDto consultarPorCodigo(String codCurso);
 
 }

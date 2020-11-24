@@ -48,12 +48,12 @@ public class CursoController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Response<CursoResponseDto>> consultaCursobyId(@PathVariable Long id) {
+	@GetMapping("/{codigo}")
+	public ResponseEntity<Response<CursoResponseDto>> consultaCursobyId(@PathVariable String codigo) {
 		Response<CursoResponseDto> response = new Response<>();
-		response.setData(cursoService.consultar(id));
+		response.setData(cursoService.consultarPorCodigo(codigo));
 		response.setHttpStatus(HttpStatus.OK.value());
-		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CursoController.class).consultaCursobyId(id)).withSelfRel());
+		response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CursoController.class).consultaCursobyId(codigo)).withSelfRel());
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
