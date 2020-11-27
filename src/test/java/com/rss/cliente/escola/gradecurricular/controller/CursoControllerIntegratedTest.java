@@ -21,11 +21,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import com.rss.cliente.escola.gradecurricular.dto.CursoRequestDto;
-import com.rss.cliente.escola.gradecurricular.dto.CursoResponseDto;
 import com.rss.cliente.escola.gradecurricular.entity.CursoEntity;
-import com.rss.cliente.escola.gradecurricular.model.Response;
 import com.rss.cliente.escola.gradecurricular.repository.ICursoRepository;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoRequestDto;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoResponseDto;
+import com.rss.cliente.escola.gradecurricular.v1.model.Response;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(JUnitPlatform.class)
@@ -76,7 +76,7 @@ public class CursoControllerIntegratedTest {
 	@Test
 	public void testListarCurso() {
 		ResponseEntity<Response<List<CursoResponseDto>>> listaCurso = restTemplate
-				.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/curso/",
+				.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/curso/",
 						HttpMethod.GET, null, new ParameterizedTypeReference<Response<List<CursoResponseDto>>>() {
 						});
 
@@ -88,7 +88,7 @@ public class CursoControllerIntegratedTest {
 	@Test
 	public void testConsultarCurso() {
 		ResponseEntity<Response<CursoResponseDto>> curso = restTemplate.withBasicAuth("rsantana", "msgradecurricular")
-				.exchange(ENDERECO + this.port + "/curso/SI01", HttpMethod.GET, null,
+				.exchange(ENDERECO + this.port + "/v1/curso/SI01", HttpMethod.GET, null,
 						new ParameterizedTypeReference<Response<CursoResponseDto>>() {
 						});
 
@@ -105,7 +105,7 @@ public class CursoControllerIntegratedTest {
 		HttpEntity<CursoRequestDto> request = new HttpEntity<>(curso);
 
 		ResponseEntity<Response<Boolean>> resultado = restTemplate.withBasicAuth("rsantana", "msgradecurricular")
-				.exchange(ENDERECO + this.port + "/curso", HttpMethod.POST, request,
+				.exchange(ENDERECO + this.port + "/v1/curso", HttpMethod.POST, request,
 						new ParameterizedTypeReference<Response<Boolean>>() {
 						});
 		assertEquals(200, resultado.getBody().getHttpStatus());
@@ -126,7 +126,7 @@ public class CursoControllerIntegratedTest {
 		HttpEntity<CursoRequestDto> request = new HttpEntity<>(curso);
 
 		ResponseEntity<Response<Boolean>> resultado = restTemplate.withBasicAuth("rsantana", "msgradecurricular")
-				.exchange(ENDERECO + this.port + "/curso", HttpMethod.PUT, request,
+				.exchange(ENDERECO + this.port + "/v1/curso", HttpMethod.PUT, request,
 						new ParameterizedTypeReference<Response<Boolean>>() {
 						});
 
@@ -141,7 +141,7 @@ public class CursoControllerIntegratedTest {
 		Long id = cursoList.get(0).getId();
 
 		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular")
-				.exchange(ENDERECO + this.port + "/curso/" + id, HttpMethod.DELETE, null,
+				.exchange(ENDERECO + this.port + "/v1/curso/" + id, HttpMethod.DELETE, null,
 						new ParameterizedTypeReference<Response<Boolean>>() {
 						});
 
