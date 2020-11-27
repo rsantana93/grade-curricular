@@ -26,7 +26,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.rss.cliente.escola.gradecurricular.dto.CursoRequestDto;
 import com.rss.cliente.escola.gradecurricular.dto.CursoResponseDto;
-import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
 import com.rss.cliente.escola.gradecurricular.entity.CursoEntity;
 import com.rss.cliente.escola.gradecurricular.model.Response;
 import com.rss.cliente.escola.gradecurricular.service.ICursoService;
@@ -80,7 +79,7 @@ public class CursoControllerUnitTest {
 		curso.setId(1L);
 		curso.setCodigo("ENGCOMP");
 		curso.setNome("ENGENHARIA DA COMPUTACAO");
-		curso.setMaterias(new ArrayList<MateriaDto>());
+
 		Mockito.when(this.cursoService.consultarPorCodigo("ENGCOMP")).thenReturn(curso);
 
 		ResponseEntity<Response<CursoResponseDto>> cursoResponse = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(

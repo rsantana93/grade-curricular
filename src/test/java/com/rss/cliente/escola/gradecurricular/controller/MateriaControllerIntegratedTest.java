@@ -164,7 +164,7 @@ public class MateriaControllerIntegratedTest {
 
 		MateriaEntity m4 = new MateriaEntity();
 		m4.setId(1L);
-		m4.setCodigo("CALC1");
+		m4.setCodigo("ILPM3");
 		m4.setFrequencia(2);
 		m4.setHoras(102);
 		m4.setNome("CALCULO I");
