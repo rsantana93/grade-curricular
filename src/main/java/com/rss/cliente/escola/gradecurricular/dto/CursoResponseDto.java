@@ -1,7 +1,5 @@
 package com.rss.cliente.escola.gradecurricular.dto;
 
-import java.util.List;
-
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.hateoas.RepresentationModel;
@@ -23,5 +21,4 @@ public class CursoResponseDto extends RepresentationModel<CursoResponseDto>{
 	@NotBlank(message = "Informe o código do curso.")
 	private String codigo;
 	
-	private List<MateriaDto> materias;
 }
