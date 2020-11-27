@@ -158,27 +158,6 @@ public class MateriaControllerIntegratedTest {
 		assertEquals(4, listMateriaAtualizada.size());
 		assertEquals(200, materias.getBody().getHttpStatus());
 	}
-	
-	@Test
-	public void testAtualizarMateria() {
-
-		MateriaEntity m4 = new MateriaEntity();
-		m4.setId(1L);
-		m4.setCodigo("ILPM3");
-		m4.setFrequencia(2);
-		m4.setHoras(102);
-		m4.setNome("CALCULO I");
-
-		HttpEntity<MateriaEntity> request = new HttpEntity<>(m4);
-
-		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/",
-				HttpMethod.PUT, request, new ParameterizedTypeReference<Response<Boolean>>() {
-				});
-
-		assertTrue(materias.getBody().getData());
-		assertEquals(200, materias.getBody().getHttpStatus());
-	}
-
 	@Test
 	public void testExcluirMateriaPorId() {
 
@@ -195,4 +174,28 @@ public class MateriaControllerIntegratedTest {
 		assertEquals(2, listMateriaAtualizada.size());
 		assertEquals(200, materias.getBody().getHttpStatus());
 	}
+	
+	@Test
+	public void testAtualizarMateria() {
+
+		MateriaEntity m4 = new MateriaEntity();
+		
+		List<MateriaEntity> materiasList = this.materiaRepository.findAll();
+		m4 = materiasList.get(0);
+		
+		m4.setCodigo("ILPM3");
+		m4.setFrequencia(2);
+		m4.setHoras(102);
+		m4.setNome("CALCULO I ATUALIZADO");
+
+		HttpEntity<MateriaEntity> request = new HttpEntity<>(m4);
+
+		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/",
+				HttpMethod.PUT, request, new ParameterizedTypeReference<Response<Boolean>>() {
+				});
+
+		assertTrue(materias.getBody().getData());
+		assertEquals(200, materias.getBody().getHttpStatus());
+	}
+
 }
