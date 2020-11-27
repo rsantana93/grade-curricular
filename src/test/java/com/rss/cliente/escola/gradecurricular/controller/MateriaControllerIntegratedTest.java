@@ -21,10 +21,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
 import com.rss.cliente.escola.gradecurricular.entity.MateriaEntity;
-import com.rss.cliente.escola.gradecurricular.model.Response;
 import com.rss.cliente.escola.gradecurricular.repository.IMateriaRepository;
+import com.rss.cliente.escola.gradecurricular.v1.dto.MateriaDto;
+import com.rss.cliente.escola.gradecurricular.v1.model.Response;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(JUnitPlatform.class)
@@ -42,7 +42,7 @@ public class MateriaControllerIntegratedTest {
 
 	private static String ENDERECO = "http://localhost:";
 
-	private static String PATH = "/materia/";
+	private static String PATH = "/v1/materia/";
 
 	// Estamos inicional da nossa aplicacao.
 	// Tudo que for chamado aqui sera executado antes dos testes
@@ -149,7 +149,7 @@ public class MateriaControllerIntegratedTest {
 
 		HttpEntity<MateriaEntity> request = new HttpEntity<>(m4);
 
-		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/",
+		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/materia/",
 				HttpMethod.POST, request, new ParameterizedTypeReference<Response<Boolean>>() {
 				});
 		List<MateriaEntity> listMateriaAtualizada = this.materiaRepository.findAll();
@@ -164,7 +164,7 @@ public class MateriaControllerIntegratedTest {
 		List<MateriaEntity> materiasList = this.materiaRepository.findAll();
 		Long id = materiasList.get(0).getId();
 
-		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/" + id,
+		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/materia/" + id,
 				HttpMethod.DELETE, null, new ParameterizedTypeReference<Response<Boolean>>() {
 				});
 
@@ -190,7 +190,7 @@ public class MateriaControllerIntegratedTest {
 
 		HttpEntity<MateriaEntity> request = new HttpEntity<>(m4);
 
-		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/",
+		ResponseEntity<Response<Boolean>> materias = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/materia/",
 				HttpMethod.PUT, request, new ParameterizedTypeReference<Response<Boolean>>() {
 				});
 

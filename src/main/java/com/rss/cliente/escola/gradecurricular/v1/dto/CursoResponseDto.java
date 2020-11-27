@@ -1,4 +1,4 @@
-package com.rss.cliente.escola.gradecurricular.dto;
+package com.rss.cliente.escola.gradecurricular.v1.dto;
 
 import javax.validation.constraints.NotBlank;
 

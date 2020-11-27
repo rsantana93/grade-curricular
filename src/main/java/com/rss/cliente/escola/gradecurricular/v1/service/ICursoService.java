@@ -1,9 +1,9 @@
-package com.rss.cliente.escola.gradecurricular.service;
+package com.rss.cliente.escola.gradecurricular.v1.service;
 
 import java.util.List;
 
-import com.rss.cliente.escola.gradecurricular.dto.CursoRequestDto;
-import com.rss.cliente.escola.gradecurricular.dto.CursoResponseDto;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoRequestDto;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoResponseDto;
 
 public interface ICursoService {
 	public Boolean atualizar(final CursoRequestDto curso);

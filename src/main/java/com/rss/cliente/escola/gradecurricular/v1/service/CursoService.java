@@ -1,4 +1,4 @@
-package com.rss.cliente.escola.gradecurricular.service;
+package com.rss.cliente.escola.gradecurricular.v1.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +12,14 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.rss.cliente.escola.gradecurricular.contant.MensagensConstant;
-import com.rss.cliente.escola.gradecurricular.dto.CursoRequestDto;
-import com.rss.cliente.escola.gradecurricular.dto.CursoResponseDto;
 import com.rss.cliente.escola.gradecurricular.entity.CursoEntity;
 import com.rss.cliente.escola.gradecurricular.entity.MateriaEntity;
-import com.rss.cliente.escola.gradecurricular.exception.CursoException;
 import com.rss.cliente.escola.gradecurricular.repository.ICursoRepository;
 import com.rss.cliente.escola.gradecurricular.repository.IMateriaRepository;
+import com.rss.cliente.escola.gradecurricular.v1.constant.MensagensConstant;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoRequestDto;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoResponseDto;
+import com.rss.cliente.escola.gradecurricular.v1.exception.CursoException;
 
 @Service
 @CacheConfig(cacheNames = "curso")

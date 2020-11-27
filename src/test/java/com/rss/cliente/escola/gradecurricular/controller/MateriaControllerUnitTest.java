@@ -24,9 +24,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
-import com.rss.cliente.escola.gradecurricular.model.Response;
-import com.rss.cliente.escola.gradecurricular.service.IMateriaService;
+import com.rss.cliente.escola.gradecurricular.v1.dto.MateriaDto;
+import com.rss.cliente.escola.gradecurricular.v1.model.Response;
+import com.rss.cliente.escola.gradecurricular.v1.service.IMateriaService;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -65,7 +65,7 @@ public class MateriaControllerUnitTest {
 		// Estamos mockando o retorno do metodo listar
 		Mockito.when(materiaService.listar()).thenReturn(new ArrayList<MateriaDto>());
 		// Estamos fazendo uma chamada do nosso serviço
-		ResponseEntity<Response<List<MateriaDto>>> materia = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/",
+		ResponseEntity<Response<List<MateriaDto>>> materia = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/materia/",
 				HttpMethod.GET, null, new ParameterizedTypeReference<Response<List<MateriaDto>>>() {
 				});
 		// comparando os resultados
@@ -77,7 +77,7 @@ public class MateriaControllerUnitTest {
 	public void testCadastrarMateria() {
 		Mockito.when(this.materiaService.cadastrar(materiaDto)).thenReturn(Boolean.TRUE);
 		HttpEntity<MateriaDto> request = new HttpEntity<>(materiaDto);
-		ResponseEntity<Response<Boolean>> sucesso = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/",
+		ResponseEntity<Response<Boolean>> sucesso = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/materia/",
 				HttpMethod.POST, request, new ParameterizedTypeReference<Response<Boolean>>() {
 				});
 		assertTrue(sucesso.getBody().getData());
@@ -88,7 +88,7 @@ public class MateriaControllerUnitTest {
 	public void testAtualizarMateria() {
 		Mockito.when(this.materiaService.atualizar(materiaDto)).thenReturn(Boolean.TRUE);
 		HttpEntity<MateriaDto> request = new HttpEntity<>(materiaDto);
-		ResponseEntity<Response<Boolean>> sucesso = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/",
+		ResponseEntity<Response<Boolean>> sucesso = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/materia/",
 				HttpMethod.PUT, request, new ParameterizedTypeReference<Response<Boolean>>() {
 				});
 		assertTrue(sucesso.getBody().getData());
@@ -99,7 +99,7 @@ public class MateriaControllerUnitTest {
 	public void testExcluirMateria() {
 		Mockito.when(this.materiaService.excluir(1L)).thenReturn(Boolean.TRUE);
 		HttpEntity<MateriaDto> request = new HttpEntity<>(materiaDto);
-		ResponseEntity<Response<Boolean>> sucesso = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/1",
+		ResponseEntity<Response<Boolean>> sucesso = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/materia/1",
 				HttpMethod.DELETE, request, new ParameterizedTypeReference<Response<Boolean>>() {
 				});
 		assertTrue(sucesso.getBody().getData());
@@ -111,7 +111,7 @@ public class MateriaControllerUnitTest {
 		// Estamos mockando o retorno do metodo consultar por id
 		Mockito.when(materiaService.consultar(1L)).thenReturn(new MateriaDto());
 		// Estamos fazendo uma chamada do nosso serviço
-		ResponseEntity<Response<MateriaDto>> materia = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/materia/1",
+		ResponseEntity<Response<MateriaDto>> materia = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(ENDERECO + this.port + "/v1/materia/1",
 				HttpMethod.GET, null, new ParameterizedTypeReference<Response<MateriaDto>>() {
 				});
 		// comparando os resultados
@@ -125,7 +125,7 @@ public class MateriaControllerUnitTest {
 		Mockito.when(materiaService.listarMateriaPorFreqMinima(64)).thenReturn(new ArrayList<MateriaDto>());
 		// Estamos fazendo uma chamada do nosso serviço
 		ResponseEntity<Response<List<MateriaDto>>> materia = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(
-				ENDERECO + this.port + "/materia/frequencia-minima/64", HttpMethod.GET, null,
+				ENDERECO + this.port + "/v1/materia/frequencia-minima/64", HttpMethod.GET, null,
 				new ParameterizedTypeReference<Response<List<MateriaDto>>>() {
 				});
 		// comparando os resultados
@@ -139,7 +139,7 @@ public class MateriaControllerUnitTest {
 		Mockito.when(materiaService.listarMateriaPorHoraMinima(1)).thenReturn(new ArrayList<MateriaDto>());
 		// Estamos fazendo uma chamada do nosso serviço
 		ResponseEntity<Response<List<MateriaDto>>> materia = restTemplate.withBasicAuth("rsantana", "msgradecurricular").exchange(
-				ENDERECO + this.port + "/materia/horario-minimo/1", HttpMethod.GET, null,
+				ENDERECO + this.port + "/v1/materia/horario-minimo/1", HttpMethod.GET, null,
 				new ParameterizedTypeReference<Response<List<MateriaDto>>>() {
 				});
 		// comparando os resultados
