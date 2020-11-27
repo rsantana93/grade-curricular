@@ -1,4 +1,4 @@
-package com.rss.cliente.escola.gradecurricular.controller;
+package com.rss.cliente.escola.gradecurricular.v1.controller;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rss.cliente.escola.gradecurricular.config.SwaggerConfig;
-import com.rss.cliente.escola.gradecurricular.dto.CursoRequestDto;
-import com.rss.cliente.escola.gradecurricular.dto.CursoResponseDto;
-import com.rss.cliente.escola.gradecurricular.model.Response;
-import com.rss.cliente.escola.gradecurricular.service.ICursoService;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoRequestDto;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoResponseDto;
+import com.rss.cliente.escola.gradecurricular.v1.model.Response;
+import com.rss.cliente.escola.gradecurricular.v1.service.ICursoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiResponses;
 
 @Api(tags= SwaggerConfig.CURSO)
 @RestController
-@RequestMapping("/curso")
+@RequestMapping("/v1/curso")
 public class CursoController {
 	
 	@Autowired

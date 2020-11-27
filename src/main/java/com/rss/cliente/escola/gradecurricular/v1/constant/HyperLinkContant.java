@@ -1,4 +1,4 @@
-package com.rss.cliente.escola.gradecurricular.contant;
+package com.rss.cliente.escola.gradecurricular.v1.constant;
 
 import lombok.Getter;
 

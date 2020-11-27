@@ -1,4 +1,4 @@
-package com.rss.cliente.escola.gradecurricular.service;
+package com.rss.cliente.escola.gradecurricular.v1.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,12 +12,12 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.rss.cliente.escola.gradecurricular.contant.MensagensConstant;
-import com.rss.cliente.escola.gradecurricular.controller.MateriaController;
-import com.rss.cliente.escola.gradecurricular.dto.MateriaDto;
 import com.rss.cliente.escola.gradecurricular.entity.MateriaEntity;
-import com.rss.cliente.escola.gradecurricular.exception.MateriaException;
 import com.rss.cliente.escola.gradecurricular.repository.IMateriaRepository;
+import com.rss.cliente.escola.gradecurricular.v1.constant.MensagensConstant;
+import com.rss.cliente.escola.gradecurricular.v1.controller.MateriaController;
+import com.rss.cliente.escola.gradecurricular.v1.dto.MateriaDto;
+import com.rss.cliente.escola.gradecurricular.v1.exception.MateriaException;
 
 @Service
 @CacheConfig(cacheNames = "materia")

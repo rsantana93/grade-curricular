@@ -24,11 +24,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import com.rss.cliente.escola.gradecurricular.dto.CursoRequestDto;
-import com.rss.cliente.escola.gradecurricular.dto.CursoResponseDto;
 import com.rss.cliente.escola.gradecurricular.entity.CursoEntity;
-import com.rss.cliente.escola.gradecurricular.model.Response;
-import com.rss.cliente.escola.gradecurricular.service.ICursoService;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoRequestDto;
+import com.rss.cliente.escola.gradecurricular.v1.dto.CursoResponseDto;
+import com.rss.cliente.escola.gradecurricular.v1.model.Response;
+import com.rss.cliente.escola.gradecurricular.v1.service.ICursoService;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -57,7 +57,7 @@ public class CursoControllerUnitTest {
 	}
 	
 	private String montaUri(String urn) {
-		return "http://localhost:" + this.port + "/curso/"+urn;
+		return "http://localhost:" + this.port + "/v1/curso/"+urn;
 	}
 
 	@Test
